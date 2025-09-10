@@ -1,0 +1,52 @@
+import express, { Request, Response } from 'express';
+import { body } from 'express-validator';
+import jwt from 'jsonwebtoken';
+import { Password } from '../services/passwords';
+import { validateRequest, BadRequestError } from '@aj_tickets/common';
+
+const router = express.Router();
+import { User } from '../models/user';
+
+router.post('/api/users/signin', [
+  body('email')
+    .isEmail()
+    .withMessage('Email must be valid'),
+  body('password')
+    .trim()
+    .notEmpty()
+    .withMessage('You must supply a password')
+],
+  validateRequest,
+  async (req: Request, res: Response) => {
+    const { email, password } = req.body;
+
+    const existingUser = await User.findOne({ email });
+
+    if (!existingUser) {
+      throw new BadRequestError('Invalid credentials!');
+    }
+
+    const passwordsMatch = await Password.compare(existingUser.password, password);
+
+    if (!passwordsMatch) {
+      throw new BadRequestError('Invalid Credentials!');
+    }
+
+    // Generate JWT
+    const userJwt = jwt.sign({
+      id: existingUser.id,
+      email: existingUser.email
+    }, process.env.JWT_KEY!);
+
+    // Store it on session object
+    // We assign an object to req.session instead of setting req.session.jwt directly,
+    // because TypeScript's type definition for cookie-session does not know about a "jwt" property.
+    // By reassigning the whole session object, we avoid TS errors while still storing the token.
+    req.session = {
+      jwt: userJwt
+    };
+
+    res.status(200).send(existingUser);
+  });
+
+export { router as signinRouter };

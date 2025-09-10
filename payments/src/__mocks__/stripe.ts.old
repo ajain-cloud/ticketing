@@ -1,0 +1,7 @@
+// Mocking the Stripe charges.create method for tests.
+// Returns a resolved promise with an empty object instead of making a real API call.
+export const stripe = {
+  charges: {
+    create: jest.fn().mockResolvedValue({})
+  }
+};
