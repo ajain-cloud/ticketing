@@ -16,7 +16,8 @@ app.use(express.json());
 app.use(
   cookieSession({
     signed: false,
-    secure: process.env.NODE_ENV !== 'test'
+    // secure: process.env.NODE_ENV !== 'test'
+    secure: false,
   })
 );
 app.use(currentUser);
@@ -27,7 +28,7 @@ app.use(indexOrderRouter);
 app.use(deleteOrderRouter);
 
 app.all('*', async () => {
-  throw new NotFoundError;
+  throw new NotFoundError();
 });
 
 // Global Error Handler
