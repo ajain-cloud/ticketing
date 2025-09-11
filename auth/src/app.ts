@@ -16,17 +16,18 @@ app.use(express.json());
 app.use(
   cookieSession({
     signed: false,
-    secure: process.env.NODE_ENV !== 'test'
+    // secure: process.env.NODE_ENV !== 'test'
+    secure: false,
   })
 );
-
 app.use(currentUserRouter);
+
 app.use(signinRouter);
 app.use(signoutRouter);
 app.use(signupRouter);
 
 app.all('*', async () => {
-  throw new NotFoundError;
+  throw new NotFoundError();
 });
 
 // Global Error Handler
