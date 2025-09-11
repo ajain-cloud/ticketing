@@ -1,4 +1,4 @@
-import dotenv from "dotenv";
+import dotenv from 'dotenv';
 
 // Load environment variables before tests run
 dotenv.config();
@@ -20,6 +20,10 @@ declare global {
 // This replaces the actual implementation with a mock version,
 // letting us isolate and test our code without relying on external NATS.
 jest.mock('../nats-wrapper');
+
+process.env.STRIPE_KEY =
+  process.env.STRIPE_KEY ||
+  'sk_test_51S4gG6LkyGA9qm3YTeRelK6x7WWPUpnKMw10FBTQAeOhHrWbegULp641hIgFdNAsjN4WyxwLeZfDlZxnkqgsZUMx00wGvhFRnt';
 
 let mongo: any;
 
@@ -59,7 +63,7 @@ global.signin = (id?: string) => {
   // Build a JWT payload. { id, email }
   const payload = {
     id: id || new mongoose.Types.ObjectId().toHexString(),
-    email: 'test@test.com'
+    email: 'test@test.com',
   };
 
   // Create the JWT!
@@ -74,6 +78,6 @@ global.signin = (id?: string) => {
   // Take JSON and encode it as base64
   const base64 = Buffer.from(sessionJSON).toString('base64');
 
-  // return a string thats the cookie with the encoded data 
+  // return a string thats the cookie with the encoded data
   return [`session=${base64}`];
 };
