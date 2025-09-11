@@ -15,6 +15,7 @@ export default function buildClient({ req }) {
     // for cluster running in production
     return axios.create({
       baseURL: 'http://www.ticketing-app-production.site/',
+      headers: req.headers,
     });
   } else {
     // we are on client
