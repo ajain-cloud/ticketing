@@ -8,8 +8,6 @@ import Header from '../components/header';
 // In Next.js, `Component` is automatically provided to _app.tsx by the framework.
 // It represents the active page being rendered, so we don’t manually pass it in.
 const AppComponent = ({ Component, pageProps, currentUser }) => {
-  console.log('Starting the component....');
-
   return (
     <div>
       <Header currentUser={currentUser} />

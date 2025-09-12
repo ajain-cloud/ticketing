@@ -12,7 +12,7 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v2
-      - run: cd client && docker build -t akshitjain232/client .
+      - run: cd client && docker build -t akshitjain232/clients .
       - name: Log in to Docker Hub
         uses: docker/login-action@v3
         with:
