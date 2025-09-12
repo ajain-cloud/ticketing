@@ -4,7 +4,6 @@ manifests:
   rawYaml:
     - ./infra/k8s/*
     - ./infra/k8s-dev/*
-    - ./infra/k8s-prod/*
 build:
   local:
     push: false
