@@ -50,7 +50,7 @@ apiVersion: v1
 kind: Service
 metadata:
   annotations:
-    service.beta.kubernetes.io/do-loadbalancer-enable-proxy-protocol: 'false'
+    service.beta.kubernetes.io/do-loadbalancer-enable-proxy-protocol: 'true'
     # service.beta.kubernetes.io/do-loadbalancer-hostname: 'www.ticketing-app-production.site'
   labels:
     helm.sh/chart: ingress-nginx-2.0.3
