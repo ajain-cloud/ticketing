@@ -2,8 +2,6 @@ import mongoose from 'mongoose';
 import { app } from './app';
 
 (async () => {
-  console.log('Starting ........');
-
   if (!process.env.JWT_KEY) {
     throw new Error('JWT key must be defined');
   }
