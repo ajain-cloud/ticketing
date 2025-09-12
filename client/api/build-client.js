@@ -14,7 +14,7 @@ export default function buildClient({ req }) {
     // requests should be made to base url of purchased domain
     // for cluster running in production
     return axios.create({
-      baseURL: 'http://www.ticketing-app-production.site/',
+      baseURL: 'http://www.ticketing-app-production.site',
       headers: req.headers,
     });
   } else {
