@@ -7,7 +7,10 @@ export default function buildClient({ req }) {
     return axios.create({
       baseURL:
         'http://ingress-nginx-controller.ingress-nginx.svc.cluster.local',
-      headers: req.headers,
+      headers: {
+        ...req.headers,
+        Host: 'ticketing.dev',
+      },
     });
 
     // we are on server
